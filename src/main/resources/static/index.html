@@ -2,60 +2,140 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User CRUD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User CRUD - Pastel Blue Edition</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
-            font-family: Arial;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 40px;
+            background-color: #f0f7ff; /* Background biru sangat muda */
+            color: #33475b;
         }
-        input, button {
-            padding: 8px;
-            margin: 5px 0;
+
+        h2 {
+            color: #5c7f9a;
+            border-bottom: 2px solid #d1e3f8;
+            padding-bottom: 8px;
         }
-        table {
-            border-collapse: collapse;
-            margin-top: 20px;
+
+        /* Styling Form */
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: inline-block;
             width: 100%;
+            max-width: 400px;
         }
-        table, th, td {
-            border: 1px solid #ccc;
+
+        input {
             padding: 10px;
+            margin: 8px 0;
+            width: calc(100% - 22px);
+            border: 1px solid #c2d9ee;
+            border-radius: 6px;
+            outline: none;
+            transition: border 0.3s;
         }
+
+        input:focus {
+            border: 1px solid #8ebef0;
+        }
+
+        /* Button Styling */
+        button {
+            padding: 10px 18px;
+            margin: 5px 2px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        button[type="submit"] {
+            background-color: #a2d2ff; /* Biru pastel utama */
+            color: #fff;
+        }
+
+        button[onclick="resetForm()"] {
+            background-color: #d8eaff;
+            color: #5c7f9a;
+        }
+
+        /* Table Styling */
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
         th {
-            background-color: #f4f4f4;
-        }
-        .delete-btn {
-            background-color: red;
-            color: white;
+            background-color: #cfe2f3;
+            color: #4a6a8a;
+            font-weight: 600;
+            padding: 15px;
             border: none;
-            cursor: pointer;
         }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f7ff;
+            text-align: left;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Action Buttons */
         .edit-btn {
-            background-color: orange;
-            color: white;
-            border: none;
-            cursor: pointer;
+            background-color: #ffde91; /* Orange soft/pastel */
+            color: #7d6631;
         }
-        .success {
-            color: green;
+
+        .delete-btn {
+            background-color: #ffafaf; /* Merah pastel */
+            color: #8b4a4a;
         }
-        .error {
-            color: red;
+
+        button:hover {
+            opacity: 0.8;
         }
+
+        /* Message Styling */
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        .success { background-color: #e3f9e5; color: #2d6a4f; }
+        .error { background-color: #ffe5e5; color: #a4161a; }
     </style>
 </head>
 <body>
+
 <h2>Form User</h2>
 <form id="userForm">
-    <!-- ID untuk update -->
     <input type="hidden" id="userId">
     <input type="text" id="name" placeholder="Nama" required>
     <input type="text" id="nim" placeholder="NIM" required>
+    <br>
     <button type="submit">Simpan</button>
     <button type="button" onclick="resetForm()">Reset</button>
 </form>
+
 <div id="message"></div>
+
 <h2>List User</h2>
 <table>
     <thead>
@@ -67,8 +147,10 @@
     </thead>
     <tbody id="userTable"></tbody>
 </table>
+
 <script>
     const BASE_URL = "/api/users";
+
     // ========================
     // LOAD USERS
     // ========================
@@ -102,6 +184,7 @@
             }
         });
     }
+
     // ========================
     // ADD / UPDATE USER
     // ========================
@@ -112,9 +195,8 @@
             name: $("#name").val(),
             nim: $("#nim").val()
         };
-        // ========================
+
         // UPDATE
-        // ========================
         if (id) {
             $.ajax({
                 url: BASE_URL + "/" + id,
@@ -132,9 +214,7 @@
                 }
             });
         }
-        // ========================
         // CREATE
-        // ========================
         else {
             $.ajax({
                 url: BASE_URL,
@@ -153,6 +233,7 @@
             });
         }
     });
+
     // ========================
     // EDIT USER
     // ========================
@@ -162,6 +243,7 @@
         $("#nim").val(nim);
         $("#message").html("✏️ Mode edit aktif").attr("class", "success");
     }
+
     // ========================
     // DELETE USER
     // ========================
@@ -180,6 +262,7 @@
             }
         });
     }
+
     // ========================
     // RESET FORM
     // ========================
@@ -189,6 +272,7 @@
         $("#nim").val("");
         $("#message").html("");
     }
+
     // ========================
     // INIT LOAD
     // ========================
