@@ -204,7 +204,7 @@
                 contentType: "application/json",
                 data: JSON.stringify(userData),
                 success: function () {
-                    $("#message").html("✏️ User berhasil diupdate").attr("class", "success");
+                    $("#message").html("User berhasil diupdate").attr("class", "success");
                     resetForm();
                     loadUsers();
                 },
@@ -241,7 +241,7 @@
         $("#userId").val(id);
         $("#name").val(name);
         $("#nim").val(nim);
-        $("#message").html("✏️ Mode edit aktif").attr("class", "success");
+        $("#message").html("Mode edit aktif").attr("class", "success");
     }
 
     // ========================
@@ -253,12 +253,12 @@
             url: BASE_URL + "/" + id,
             type: "DELETE",
             success: function () {
-                $("#message").html("🗑️ User berhasil dihapus").attr("class", "success");
+                $("#message").html("User berhasil dihapus").attr("class", "success");
                 loadUsers();
             },
             error: function (xhr) {
                 console.log(xhr);
-                $("#message").html("❌ Gagal hapus user").attr("class", "error");
+                $("#message").html("Gagal hapus user").attr("class", "error");
             }
         });
     }
